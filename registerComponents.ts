@@ -15,9 +15,9 @@ import {
   Textarea,
   DataTable,
   Card,
+  Tooltip,
 } from "primevue";
-import { Form } from '@primevue/forms';
-
+import { Form } from "@primevue/forms";
 
 export default function registerComponents(app) {
   app.component("Button", Button);
@@ -35,7 +35,9 @@ export default function registerComponents(app) {
   app.component("Textarea", Textarea);
   app.component("DataTable", DataTable);
   app.component("Card", Card);
-  
+
   app.component("Tag", Tag);
   app.component("DataView", DataView);
+
+  app.directive("tooltip", Tooltip);
 }
