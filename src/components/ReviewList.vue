@@ -13,8 +13,8 @@
         </div>
 
         <!-- Right: Add Review Button -->
-        <div class="flex gap-2">
-          <template v-if="store.selectedReviews.length > 0">
+        <div class="flex items-center justify-end gap-2 flex-wrap md:flex-nowrap w-full sm:w-auto">
+          <div class="gap-2 grid grid-cols-1 md:grid-cols-2 w-full sm:w-auto" v-if="store.selectedReviews.length > 0">
             <Button
               label="Approve Selected"
               icon="pi pi-check"
@@ -27,7 +27,7 @@
               class="p-button-sm p-button-warning"
               @click="$emit('bulk-action', 'flag')"
             />
-          </template>
+          </div>
 
           <Button
             label="Add New Review"
