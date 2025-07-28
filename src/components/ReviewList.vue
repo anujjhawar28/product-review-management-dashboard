@@ -61,7 +61,7 @@
         <Column selectionMode="multiple" headerStyle="width: 3rem" />
         <Column field="name" header="Reviewer" sortable />
         <Column field="email" header="Email" />
-        <Column header="Rating" sortable>
+        <Column header="Rating" field="rating" sortable>
           <template #body="{ data }">
             <Rating :modelValue="data.rating" readonly :cancel="false" />
           </template>
