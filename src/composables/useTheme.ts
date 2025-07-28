@@ -5,9 +5,9 @@ const isDark = ref(false);
 export function useTheme() {
   const toggleTheme = () => {
     const root = document.documentElement;
-    const isDark = root.classList.contains("my-app-dark");
+    isDark.value = !isDark.value;
 
-    if (isDark) {
+    if (isDark.value) {
       root.classList.remove("my-app-dark");
       localStorage.setItem("theme", "light");
     } else {

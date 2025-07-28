@@ -1,13 +1,17 @@
 <template>
-  <div class="p-4 mb-4 border rounded-lg shadow-sm bg-white dark:bg-gray-900">
+  <div
+    class="p-4 mb-4 border rounded-lg shadow-sm bg-surface-0 dark:bg-surface-800 text-surface-900 dark:text-surface-0"
+  >
     <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
       <!-- Status Filter -->
       <div>
         <label for="status" class="block mb-1 font-medium">Status</label>
-        <Dropdown
+        <Select
           id="status"
           v-model="filters.status"
           :options="statusOptions"
+          optionLabel="label"
+          optionValue="value"
           placeholder="Select Status"
           class="w-full"
         />
@@ -40,35 +44,64 @@
 
     <!-- Buttons -->
     <div class="mt-4 flex justify-end gap-2">
-      <Button label="Reset" icon="pi pi-refresh" class="p-button-secondary" @click="reset" />
-      <Button label="Apply Filters" icon="pi pi-filter" class="p-button-primary" @click="apply" />
+      <Button
+        label="Reset"
+        icon="pi pi-refresh"
+        class="p-button-secondary"
+        @click="reset"
+      />
+      <Button
+        label="Apply Filters"
+        icon="pi pi-filter"
+        class="p-button-primary"
+        @click="apply"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const emit = defineEmits(['filter-updated'])
+const emit = defineEmits<(
+  event: "filter-updated",
+  value: {
+    status: string | null;
+    rating: number;
+    dateRange: [Date, Date] | null;
+  }
+) => void>();
 
-const statusOptions = ['Approved', 'Pending', 'Flagged']
+// Define possible review statuses
+const statusOptions = [
+  { label: "Approved", value: "Approved" },
+  { label: "Pending", value: "Pending" },
+  { label: "Flagged", value: "Flagged" },
+];
 
-const filters = ref({
-  status: null as string | null,
-  rating: null as number | null,
-  dateRange: null as [Date, Date] | null,
-})
+// Filters state
+const filters = ref<{
+  status: string | null;
+  rating: number;
+  dateRange: [Date, Date] | null;
+}>({
+  status: null,
+  rating: 0,
+  dateRange: null,
+});
 
+// Reset filters
 const reset = () => {
   filters.value = {
     status: null,
-    rating: null,
+    rating: 0,
     dateRange: null,
-  }
-  emit('filter-updated', filters.value)
-}
+  };
+  emit("filter-updated", filters.value);
+};
 
+// Apply current filters
 const apply = () => {
-  emit('filter-updated', filters.value)
-}
+  emit("filter-updated", filters.value);
+};
 </script>

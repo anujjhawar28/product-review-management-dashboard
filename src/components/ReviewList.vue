@@ -19,7 +19,7 @@
 
       <Column header="Rating" sortable>
         <template #body="{ data }">
-          <Rating :value="data.rating" readonly :cancel="false" />
+          <Rating :modelValue="data.rating" readonly :cancel="false" />
         </template>
       </Column>
 
@@ -78,7 +78,6 @@
 <script lang="ts" setup>
 import { defineProps, defineEmits } from 'vue'
 import { useReviewStore } from '../stores/reviewStore'
-import Rating from 'primevue/rating'
 
 defineProps<{
   reviews: any[]

@@ -1,8 +1,7 @@
 <template>
-  <div class="flex items-center gap-2">
-    <i :class="`pi ${isDark ? 'pi-moon' : 'pi-sun'}`" />
-    <InputSwitch v-model="isDark" @change="toggleTheme" />
-    <span>{{ isDark ? 'Dark' : 'Light' }}</span>
+  <div class="flex items-center gap-2 cursor-pointer" @click="toggleTheme">
+    <i :class="`pi ${!isDark ? 'pi-moon' : 'pi-sun'}`" />
+    <span>{{ !isDark ? 'Dark' : 'Light' }}</span>
   </div>
 </template>
 
@@ -14,6 +13,6 @@ const { isDark, toggleTheme } = useTheme()
 
 <style scoped>
 .pi {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 </style>
