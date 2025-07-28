@@ -74,7 +74,17 @@
             </span>
           </template>
         </Column>
-        <Column field="comment" header="Comment" />
+        <Column field="comment" header="Comment">
+          <template #body="{ data }">
+            <span v-tooltip="data.comment">
+              {{
+                data.comment.length > 100
+                  ? data.comment.slice(0, 100) + "..."
+                  : data.comment
+              }}
+            </span>
+          </template>
+        </Column>
         <Column header="Actions">
           <template #body="{ data }">
             <Button
