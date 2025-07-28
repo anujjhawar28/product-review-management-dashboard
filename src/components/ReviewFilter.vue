@@ -1,107 +1,108 @@
 <template>
-  <div
-    class="p-4 mb-4 border rounded-lg shadow-sm bg-surface-0 dark:bg-surface-800 text-surface-900 dark:text-surface-0"
+  <Card
+    class="mb-4 max-w-wrapper-md mx-auto bg-surface-100 dark:bg-surface-800 text-surface-900 dark:text-surface-0  shadow-2xl border border-surface-300 rounded-lg"
   >
-    <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
-      <!-- Status Filter -->
-      <div>
-        <label for="status" class="block mb-1 font-medium">Status</label>
-        <Select
-          id="status"
-          v-model="filters.status"
-          :options="statusOptions"
-          optionLabel="label"
-          optionValue="value"
-          placeholder="Select Status"
-          class="w-full"
-        />
-      </div>
+    <template #content>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-3 items-center">
+        <!-- Status Filter -->
+        <div>
+          <label for="status" class="block mb-1 text-sm font-medium">Status</label>
+          <Select
+            id="status"
+            v-model="filters.status"
+            :options="statusOptions"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Select Status"
+            class="w-full"
+            inputClass="p-inputtext-sm"
+          />
+        </div>
 
-      <!-- Star Rating Filter -->
-      <div>
-        <label for="rating" class="block mb-1 font-medium">Min. Rating</label>
-        <Rating
-          id="rating"
-          v-model="filters.rating"
-          :cancel="true"
-          class="w-full"
-        />
-      </div>
+        <!-- Star Rating Filter -->
+        <div class="flex sm:justify-center">
+          <div>
+            <label for="rating" class="block mb-1 text-sm font-medium">Min. Rating</label>
+            <div class="pt-[2px]">
+              <Rating
+                id="rating"
+                v-model="filters.rating"
+                :cancel="true"
+                class="text-sm"
+                :stars="5"
+              />
+            </div>
+          </div>
+        </div>
 
-      <!-- Date Range Filter -->
-      <div class="col-span-2">
-        <label for="date" class="block mb-1 font-medium">Date Range</label>
-        <Calendar
-          id="date"
-          v-model="filters.dateRange"
-          selectionMode="range"
-          dateFormat="yy-mm-dd"
-          showIcon
-          class="w-full"
-        />
-      </div>
-    </div>
+        <!-- Date Range Filter -->
+        <div>
+          <label for="date" class="block mb-1 text-sm font-medium">Date Range</label>
+          <Calendar
+            id="date"
+            v-model="filters.dateRange"
+            selectionMode="range"
+            dateFormat="yy-mm-dd"
+            showIcon
+            class="w-full"
+            inputClass="p-inputtext-sm"
+          />
+        </div>
 
-    <!-- Buttons -->
-    <div class="mt-4 flex justify-end gap-2">
-      <Button
-        label="Reset"
-        icon="pi pi-refresh"
-        class="p-button-secondary"
-        @click="reset"
-      />
-      <Button
-        label="Apply Filters"
-        icon="pi pi-filter"
-        class="p-button-primary"
-        @click="apply"
-      />
-    </div>
-  </div>
+        <!-- Filter Buttons -->
+        <div class="mt-4 flex flex-col sm:flex-row justify-end gap-2">
+          <Button
+            label="Reset"
+            icon="pi pi-refresh"
+            class="p-button-secondary p-button-sm w-full sm:w-auto"
+            @click="reset"
+          />
+          <Button
+            label="Apply Filters"
+            icon="pi pi-filter"
+            class="p-button-primary p-button-sm w-full sm:w-auto"
+            @click="apply"
+          />
+        </div>
+      </div>
+    </template>
+  </Card>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref } from "vue"
 
 const emit = defineEmits<(
   event: "filter-updated",
   value: {
-    status: string | null;
-    rating: number;
-    dateRange: [Date, Date] | null;
+    status: string | null
+    rating: number
+    dateRange: [Date, Date] | null
   }
-) => void>();
+) => void>()
 
-// Define possible review statuses
 const statusOptions = [
   { label: "Approved", value: "Approved" },
   { label: "Pending", value: "Pending" },
-  { label: "Flagged", value: "Flagged" },
-];
+  { label: "Flagged", value: "Flagged" }
+]
 
-// Filters state
-const filters = ref<{
-  status: string | null;
-  rating: number;
-  dateRange: [Date, Date] | null;
-}>({
-  status: null,
+const filters = ref({
+  status: null as string | null,
   rating: 0,
-  dateRange: null,
-});
+  dateRange: null as [Date, Date] | null
+})
 
-// Reset filters
 const reset = () => {
   filters.value = {
     status: null,
     rating: 0,
-    dateRange: null,
-  };
-  emit("filter-updated", filters.value);
-};
+    dateRange: null
+  }
+  emit("filter-updated", { ...filters.value })
+}
 
-// Apply current filters
 const apply = () => {
-  emit("filter-updated", filters.value);
-};
+  emit("filter-updated", { ...filters.value })
+}
 </script>

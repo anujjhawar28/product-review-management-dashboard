@@ -7,7 +7,7 @@
       responsiveLayout="scroll"
       selectionMode="multiple"
       paginator
-      :rows="10"
+      :rows="5"
       :totalRecords="reviews.length"
       :rowsPerPageOptions="[5, 10, 20]"
       class="p-datatable-sm"

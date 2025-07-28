@@ -15,7 +15,7 @@ import {
   Calendar,
   Textarea,
   DataTable,
-  InputSwitch
+  Card,
 } from "primevue";
 import { Form } from '@primevue/forms';
 
@@ -36,7 +36,7 @@ export default function registerComponents(app) {
   app.component("Calendar", Calendar);
   app.component("Textarea", Textarea);
   app.component("DataTable", DataTable);
-  app.component("InputSwitch", InputSwitch);
+  app.component("Card", Card);
   
   app.component("Tag", Tag);
   app.component("DataView", DataView);
