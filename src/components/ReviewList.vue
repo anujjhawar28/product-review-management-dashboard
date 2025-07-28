@@ -1,31 +1,36 @@
 <template>
-  <Card class="mb-4 bg-surface-100 dark:bg-surface-800 text-surface-900 dark:text-surface-0  shadow-2xl border border-surface-300 rounded-lg">
+  <Card
+    class="mb-4 bg-surface-100 dark:bg-surface-800 text-surface-900 dark:text-surface-0 shadow-2xl border border-surface-300 rounded-lg"
+  >
     <template #content>
       <!-- Toolbar with Count, Bulk Actions, Add Button -->
       <div
         class="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center mb-4"
       >
-        <!-- Left: Count + Bulk Buttons -->
-        <div class="flex flex-col sm:flex-row sm:items-center gap-2">
-          <span class="text-lg font-semibold">
-            {{ reviews.length }} Reviews Found
-          </span>
+        <!-- Left -->
+        <div class="text-lg font-semibold">
+          {{ reviews.length }} Reviews Found
         </div>
 
-        <!-- Right: Add Review Button -->
-        <div class="flex items-center justify-end gap-2 flex-wrap md:flex-nowrap w-full sm:w-auto">
-          <div class="gap-2 grid grid-cols-1 md:grid-cols-2 w-full sm:w-auto" v-if="store.selectedReviews.length > 0">
+        <!-- Right Buttons -->
+        <div
+          class="flex items-center justify-end gap-2 flex-wrap md:flex-nowrap w-full sm:w-auto"
+        >
+          <div
+            class="gap-2 grid grid-cols-1 md:grid-cols-2 w-full sm:w-auto"
+            v-if="store.selectedReviews.length > 0"
+          >
             <Button
               label="Approve Selected"
               icon="pi pi-check"
               class="p-button-sm p-button-success"
-              @click="$emit('bulk-action', 'approve')"
+              @click="promptBulk('approve')"
             />
             <Button
               label="Flag Selected"
               icon="pi pi-flag"
               class="p-button-sm p-button-warning"
-              @click="$emit('bulk-action', 'flag')"
+              @click="promptBulk('flag')"
             />
           </div>
 
@@ -56,13 +61,11 @@
         <Column selectionMode="multiple" headerStyle="width: 3rem" />
         <Column field="name" header="Reviewer" sortable />
         <Column field="email" header="Email" />
-
         <Column header="Rating" sortable>
           <template #body="{ data }">
             <Rating :modelValue="data.rating" readonly :cancel="false" />
           </template>
         </Column>
-
         <Column field="date" header="Date" sortable />
         <Column field="status" header="Status" sortable>
           <template #body="{ data }">
@@ -71,9 +74,7 @@
             </span>
           </template>
         </Column>
-
         <Column field="comment" header="Comment" />
-
         <Column header="Actions">
           <template #body="{ data }">
             <Button
@@ -97,26 +98,71 @@
           </template>
         </Column>
       </DataTable>
+
+      <!-- Bulk Action Confirmation Dialog -->
+      <Dialog
+        v-model:visible="showBulkConfirm"
+        :header="bulkAction === 'approve' ? 'Confirm Approve' : 'Confirm Flag'"
+        modal
+        class="w-[90vw] sm:w-[30rem]"
+      >
+        <p>
+          Are you sure you want to
+          <strong>{{ bulkAction === "approve" ? "approve" : "flag" }}</strong>
+          the selected {{ store.selectedReviews.length }} review(s)?
+        </p>
+        <template #footer>
+          <Button
+            label="Cancel"
+            icon="pi pi-times"
+            class="p-button-text"
+            @click="cancelBulkAction"
+          />
+          <Button
+            icon="pi pi-check"
+            :label="bulkAction === 'approve' ? 'Approve' : 'Flag'"
+            :class="
+              bulkAction === 'approve' ? 'p-button-success' : 'p-button-warning'
+            "
+            @click="confirmBulkAction"
+          />
+        </template>
+      </Dialog>
     </template>
   </Card>
 </template>
 
 <script lang="ts" setup>
+import { ref } from "vue";
 import { useReviewStore } from "../stores/reviewStore";
 
-defineProps<{
-  reviews: any[];
-}>();
-
+defineProps<{ reviews: any[] }>();
 const emit = defineEmits(["confirm-delete", "bulk-action", "add-review"]);
 
 const store = useReviewStore();
 
-const statusClass = (status: string) => {
-  return {
-    "text-green-600 font-semibold": status === "Approved",
-    "text-yellow-600 font-semibold": status === "Pending",
-    "text-red-600 font-semibold": status === "Flagged",
-  };
-};
+const statusClass = (status: string) => ({
+  "text-green-600 font-semibold": status === "Approved",
+  "text-yellow-600 font-semibold": status === "Pending",
+  "text-red-600 font-semibold": status === "Flagged",
+});
+
+// Bulk confirmation dialog
+const showBulkConfirm = ref(false);
+const bulkAction = ref<"approve" | "flag">("approve");
+
+function promptBulk(action: "approve" | "flag") {
+  bulkAction.value = action;
+  showBulkConfirm.value = true;
+}
+
+function confirmBulkAction() {
+  emit("bulk-action", bulkAction.value);
+  store.selectedReviews = [];
+  showBulkConfirm.value = false;
+}
+
+function cancelBulkAction() {
+  showBulkConfirm.value = false;
+}
 </script>
