@@ -60,17 +60,15 @@ const CustomPreset = definePreset(Aura, {
     },
   },
 });
+
 const app = createApp(App);
 app.use(PrimeVue, {
   ripple: true,
   theme: {
     preset: CustomPreset,
     options: {
-      darkModeSelector: ".app-dark",
-      cssLayer: {
-        name: "primevue",
-        order: "theme, base, primevue",
-      },
+      darkModeSelector: '.my-app-dark',
+      darkMode: "auto",
     },
   },
 });

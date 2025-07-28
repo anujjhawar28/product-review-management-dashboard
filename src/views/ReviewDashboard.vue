@@ -1,16 +1,11 @@
 <template>
-  <div class="p-4 space-y-4">
-    <div class="flex justify-between items-center">
-      <h2 class="text-2xl font-bold">Product Reviews Dashboard</h2>
-      <ThemeSwitcher />
-    </div>
-
+  <div class="space-y-4">
     <!-- Filter Panel -->
     <ReviewFilter @filter-updated="applyFilters" />
 
     <!-- Toolbar -->
-    <div class="flex justify-between items-center">
-      <div class="text-lg font-semibold">
+    <div class="flex justify-between items-center bg-surface-100 dark:bg-surface-800 p-3 rounded-md">
+      <div class="text-lg font-semibold text-surface-900 dark:text-white">
         {{ filteredReviews.length }} Reviews Found
       </div>
       <Button
@@ -40,8 +35,6 @@
       @confirm="deleteReview"
       @cancel="selectedToDelete = null"
     />
-
-    <Toast />
   </div>
 </template>
 
@@ -51,7 +44,6 @@ import ReviewList from '../components/ReviewList.vue'
 import ReviewForm from '../components/ReviewForm.vue'
 import ReviewFilter from '../components/ReviewFilter.vue'
 import ConfirmationDialog from '../components/ConfirmationDialog.vue'
-import ThemeSwitcher from '../components/ThemeSwitcher.vue'
 import { useToast } from 'primevue/usetoast'
 import { useReviewStore } from '../stores/reviewStore'
 
