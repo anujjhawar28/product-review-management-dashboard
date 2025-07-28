@@ -20,7 +20,7 @@
 
     <div class="p-field">
       <label for="date">Date</label>
-      <Calendar id="date" v-model="form.date" dateFormat="yy-mm-dd" showIcon />
+      <DatePicker id="date" v-model="form.date" dateFormat="yy-mm-dd" showIcon />
       <small v-if="errors.date" class="p-error">Date is required.</small>
     </div>
 

@@ -38,7 +38,7 @@
         <!-- Date Range Filter -->
         <div>
           <label for="date" class="block mb-1 text-sm font-medium">Date Range</label>
-          <Calendar
+          <DatePicker
             id="date"
             v-model="filters.dateRange"
             selectionMode="range"

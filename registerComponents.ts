@@ -12,7 +12,6 @@ import {
   FloatLabel,
   Tag,
   Rating,
-  Calendar,
   Textarea,
   DataTable,
   Card,
@@ -33,7 +32,6 @@ export default function registerComponents(app) {
   app.component("Select", Select);
   app.component("FloatLabel", FloatLabel);
   app.component("Rating", Rating);
-  app.component("Calendar", Calendar);
   app.component("Textarea", Textarea);
   app.component("DataTable", DataTable);
   app.component("Card", Card);

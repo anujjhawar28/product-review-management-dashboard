@@ -3,24 +3,12 @@
     <!-- Filter Panel -->
     <ReviewFilter @filter-updated="applyFilters" />
 
-    <!-- Toolbar -->
-    <div class="flex justify-between items-center bg-surface-100 dark:bg-surface-800 p-3 rounded-md">
-      <div class="text-lg font-semibold text-surface-900 dark:text-white">
-        {{ filteredReviews.length }} Reviews Found
-      </div>
-      <Button
-        label="Add New Review"
-        icon="pi pi-plus"
-        class="p-button-primary"
-        @click="showForm = true"
-      />
-    </div>
-
     <!-- Review Table -->
     <ReviewList
       :reviews="filteredReviews"
       @confirm-delete="openDeleteDialog"
       @bulk-action="handleBulkAction"
+      @add-review="showForm = true"
     />
 
     <!-- Add Review Form Modal -->
