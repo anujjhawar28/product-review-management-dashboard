@@ -74,7 +74,7 @@ const openDeleteDialog = (id: number) => {
 const deleteReview = () => {
   if (selectedToDelete.value !== null) {
     store.deleteReview(selectedToDelete.value)
-    toast.add({ severity: 'warn', summary: 'Review Deleted', life: 3000 })
+    toast.add({ severity: 'error', summary: 'Review deleted successfully', life: 3000 })
     selectedToDelete.value = null
     showConfirmDialog.value = false
   }
@@ -84,6 +84,7 @@ const handleBulkAction = (action: 'approve' | 'flag') => {
   store.selectedReviews.forEach((review) => {
     store.updateReviewStatus(review.id, action === 'approve' ? 'Approved' : 'Flagged')
   })
-  toast.add({ severity: 'info', summary: 'Bulk Action Applied', life: 3000 })
+  store.selectedReviews = []
+  toast.add({ severity: 'success', summary: 'Reviews updated successfully', life: 3000 })
 }
 </script>
