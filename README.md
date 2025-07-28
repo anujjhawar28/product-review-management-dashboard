@@ -3,6 +3,51 @@
 This is a Vue 3 + PrimeVue-based internal dashboard for managing product reviews. It includes moderation actions, filtering, form submission, and full state management using Pinia.
 
 ---
+## ✅ Prerequisites
+
+Ensure you have the following installed on your machine:
+
+- **Node.js** (v18 or later recommended)
+- **npm**, **yarn**, or **pnpm**
+
+---
+## 📦 Installation
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/anujjhawar28/product-review-management-dashboard.git
+cd product-review-management-dashboard
+npm install
+```
+---
+## 📦 Starting the Server
+
+Start the server:
+
+```bash
+npm run dev
+```
+---
+## 📦 Creating the Production Build and Preview
+
+Create the production build and preview locally:
+
+```bash
+npm run build 
+
+npm run preview
+```
+---
+---
+## 📦 Running Test cases
+
+Run Unit test cases:
+
+```bash
+npm run test
+```
+---
 
 ## 🚀 Features
 
@@ -23,6 +68,7 @@ This is a Vue 3 + PrimeVue-based internal dashboard for managing product reviews
 
 ---
 
+
 ## 🧰 Tech Stack
 
 - **Vue 3** with **Composition API**
@@ -31,6 +77,7 @@ This is a Vue 3 + PrimeVue-based internal dashboard for managing product reviews
 - **Vue Router** for page routing
 - **TypeScript** for all logic and data models
 - **Vite** for fast dev build
+- **Vitest** for unit test the composables and components
 
 ---
 
@@ -52,6 +99,7 @@ This is a Vue 3 + PrimeVue-based internal dashboard for managing product reviews
   * Virtual Scrolling for large datasets (its easy to implement as PrimeVue Table Component Gives Lazy Loading and Virtual Scroll Support in Base Table)
   * Debounced filtering (currently applies on button click which is equivalent easier with filter form submission)
   * API Integration (currently using mock data via Pinia)
+  * Unit test cases Add more test cases for Components and Composables and test coverage should be more than 75%
 
 ---
 
@@ -67,5 +115,6 @@ This is a Vue 3 + PrimeVue-based internal dashboard for managing product reviews
 * ✅ **Review Detail Modal**: Show full comment, user details, and history in a modal on row click.
 * ✅ **Edit Review Modal**: Show Add new Review Popup to Update the Comment if needed.
 * ✅ **Tagging or Category Support**: Allow tagging reviews by product line, category, or sentiment.
+* ✅ **Test coverages**: Add more test cases and test suits for components and unit test the base functionality for all components and composables.
 
 ---
